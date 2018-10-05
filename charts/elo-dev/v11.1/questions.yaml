@@ -3,14 +3,14 @@ categories:
 - ELO
 - Development
 questions:
-- variable: ELO_HOST
+- variable: applicationUrl
   default: ""
-  description: "Hostname the service can be accessed. e.g. http://demo.contelo.com"
+  description: "Url the service can be accessed. e.g. http://demo.contelo.com"
   type: string
   required: true
-  label: Hostname
+  label: Application URL
   group: "Environment"
-- variable: ELO_MEMORY
+- variable: applicationMemory
   default: "768m"
   description: "Java memory options for JMX and XMX values. e.g. 1024m"
   type: string
