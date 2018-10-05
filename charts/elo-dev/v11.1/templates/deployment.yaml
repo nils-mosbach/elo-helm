@@ -1,17 +1,21 @@
-apiVersion: apps/v1beta2
-kind: StatefulSet
+apiVersion: apps/v1beta1
+kind: Deployment
 metadata:
-  name: elo
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
 spec:
-  podManagementPolicy: OrderedReady
-  replicas: 1
-  revisionHistoryLimit: 10
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        app: elo
+        app: {{ template "fullname" . }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        release: "{{ .Release.Name }}"
     spec:
-      affinity: {}
       containers:
       - env:
         {{- if .Values.hostName }}
@@ -28,16 +32,8 @@ spec:
         name: elo
         ports:
         - containerPort: 9090
-      dnsPolicy: ClusterFirst
       hostAliases:
       - hostnames:
         - elo
         ip: 127.0.0.1
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
-  updateStrategy:
-    type: RollingUpdate
-status:
-  replicas: 0
+
