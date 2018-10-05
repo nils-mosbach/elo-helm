@@ -1,0 +1,8 @@
+name: ELO development environment
+version: 11.01
+appVersion: 11.01
+description: Preconfigured development envorinment with ELO 11.
+icon: https://pbs.twimg.com/profile_images/877146426349944833/C2jf5r-h_400x400.jpg
+maintainers:
+  - name: Nils Mosbach
+home: http://www.elo.com/

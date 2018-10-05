@@ -1,0 +1,43 @@
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: elo
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        app: elo
+    spec:
+      affinity: {}
+      containers:
+      - env:
+        {{- if .Values.hostName }}
+        - name: ELO_HOST
+          value: {{.Values.hostName}}
+        {{- else }}
+        - name: ELO_HOST
+          value: https://{{.Release.Name}}.contelo.com
+        {{- end}}
+        - name: ELO_MEMORY
+          value: {{ .Values.ELO_MEMORY }}
+        image: elodigital/elo-dev:{{.Values.tag}}
+        imagePullPolicy: Always
+        name: elo
+        ports:
+        - containerPort: 9090
+      dnsPolicy: ClusterFirst
+      hostAliases:
+      - hostnames:
+        - elo
+        ip: 127.0.0.1
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  updateStrategy:
+    type: RollingUpdate
+status:
+  replicas: 0

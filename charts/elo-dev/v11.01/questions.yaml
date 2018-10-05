@@ -1,0 +1,19 @@
+categories:
+- ECM
+- ELO
+- Development
+questions:
+- variable: ELO_HOST
+  default: ""
+  description: "Hostname the service can be accessed. e.g. http://demo.contelo.com"
+  type: string
+  required: true
+  label: Hostname
+  group: "Environment"
+- variable: ELO_MEMORY
+  default: "768m"
+  description: "Java memory options for JMX and XMX values. e.g. 1024m"
+  type: string
+  required: true
+  label: Memory settings
+  group: "Application resources"
